@@ -24,11 +24,13 @@ class ChatListComponent extends React.Component {
       return(
         <div className={classes.root}>
           <Button variant='contained'
-          fullWidth
-          color='primary'
-          className={classes.newChatBtn}
-          onClick={this.newChat}>Nova Mensagem</Button>
-          <List>
+            fullWidth
+            color='primary'
+            className={classes.newChatBtn}
+            onClick={this.newChat}>
+              Nova Mensagem
+          </Button>
+          <List> 
             {
               this.props.chats.map((_chat, _index) => {
                 return(
@@ -38,14 +40,15 @@ class ChatListComponent extends React.Component {
                       selected={this.props.selectChatIndex === _index}
                       alignItems='flex-start'>
                         <ListItemAvatar>
-                          <Avatar alt='Remy Sharp'>{_chat.users.filter(_user => _user !== this.props.userEmail)[0].split('')}</Avatar>
+                          <Avatar alt='Remy Sharp'>{_chat.users.filter(_user => _user !== this.props.userEmail)[0].split('')[0]}</Avatar>
                         </ListItemAvatar>
-                      <ListItemText primary={_chat.users.filter(_user => _user !== this.props.userEmail)[0]}
+                      <ListItemText 
+                      primary={_chat.users.filter(_user => _user !== this.props.userEmail)[0]}
                       secondary={
                         <React.Fragment>
                           <Typography component='span'
                             color='textPrimary'>
-                              {/* {_chat.messages[_chat.messages.length - 1].message.substring(0, 30) + ' ...'} */}
+                              {_chat.messagees[_chat.messagees.length - 1].message.substring(0, 30) + ' ...'}
                           </Typography>
                         </React.Fragment>
                         }>
@@ -63,25 +66,25 @@ class ChatListComponent extends React.Component {
     } else {
       return(
         <main className={classes.root}>
-        <Button variant='contained'
-        fullWidth
-        color='primary'
-        onClick={this.newChat}
-        className={classes.newChatBtn}>
-          Nova Mensagem
-        </Button>
-        <list></list>
+          <Button variant='contained'
+          fullWidth
+          color='primary'
+          onClick={this.newChat}
+          className={classes.newChatBtn}>
+            Nova Mensagem
+          </Button>
+        <List></List>
       </main>
       )
-
     }
   }
+  
 
   newChat = () => {
     console.log('Novo click chat');
   }
   selectChat = (index) => {
-    console.log('select chat', index);
+    this.props.selectChatFn(index);
   }
 }
 

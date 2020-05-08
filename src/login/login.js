@@ -74,10 +74,10 @@ class LoginComponent extends React.Component {
         break;
     }
   }
-  submitLogin = (e) => {
+  submitLogin = async (e) => {
     e.preventDefault();
     
-    firebase
+    await firebase
       .auth()
       .signInWithEmailAndPassword(this.state.email, this.state.password)
       .then(() => {

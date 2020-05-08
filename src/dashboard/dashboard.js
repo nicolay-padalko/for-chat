@@ -23,35 +23,34 @@ class DashboardComponent extends React.Component {
     const { classes } = this.props;
 
     return(
-    <div>
-      <div> Olá Mundo do dashboard</div>
-      <ChatListComponent history={this.props.history}
-      newChatBtnFn={this.newChatBtnClicked}
-      selectChatFn={this.selectChat}
-      chats={this.state.chats}
-      userEmail={this.state.email}
-      selectedChatIndex={this.state.selectedChat}></ChatListComponent>
-      {
-        this.state.newChatFormVisible ?
-        null :
-        <ChatViewComponent>
-          user={this.state.email}
-          chat={this.state.chats[this.state.selectedChat]}
-        </ChatViewComponent>
-      }
-      <Button className={classes.signOutBtn} onClick={this.signout}>Desconectar</Button>
-    </div>
+      <div>
+        <ChatListComponent history={this.props.history}
+        newChatBtnFn={this.newChatBtnClicked}
+        selectChatFn={this.selectChat}
+        chats={this.state.chats}
+        userEmail={this.state.email}
+        selectedChatIndex={this.state.selectedChat}>
+        </ChatListComponent>
+        {
+          this.state.newChatFormVisible ?
+          null :
+          <ChatViewComponent>
+            user={this.state.email}
+            chat={this.state.chats[this.state.selectedChat]}
+          </ChatViewComponent>
+        }
+        <Button className={classes.signOutBtn} onClick={this.signOut}>Desconectar</Button>
+      </div>
     );
   }
 
   signOut = () => firebase.auth().signOut();
 
   selectChat = (chatIndex) => {
-    console.log('index:', chatIndex);
     this.setState({ selectedChat: chatIndex});
   }
 
-  newChatBtnClicked = () => this.setState({ newChatFormVisible: true, selectChat: null });
+  newChatBtnClicked = () => this.setState({ newChatFormVisible: true, selectedChat: null });
   
   componentDidMount = () => {
     firebase.auth().onAuthStateChanged(async _usr => {
