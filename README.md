@@ -1,2 +1,2 @@
 # for-chat
-chat Reat Firebase
+chat React Firebase
